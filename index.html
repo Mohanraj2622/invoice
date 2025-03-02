@@ -6,102 +6,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Invoice Generator</h1>
-
-
-        <!-- Shop Details -->
-        <div class="shop-details">
-            <h2>Shop Details</h2>
-            <input type="text" id="shop-name" placeholder="Shop Name" value="Shawarma Spot">
-            <input type="text" id="shop-address" placeholder="Shop Address" value="Krishnagiri, Tamil Nadu">
-            <input type="text" id="shop-contact" placeholder="Contact Information"
-                value="Phone: +91 98765 43210, Email: contact@mystore.com">
-            <input type="text" id="shop-gstin" placeholder="GSTIN" value="">
-        </div>
-
-        <!-- Invoice Details -->
-        <div class="invoice-details">
-            <div class="invoice-date">
-                <p>Date & Time:</p>
-                <span id="current-datetime"></span>
+    <!-- Header and Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="shawarma-logo.png" alt="Generator Logo" class="logo">
+                
             </div>
-            <div class="invoice-number">
-                <p>Invoice #:</p>
-                <span id="invoice-number"></span>
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-file-invoice"></i> Invoices</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-box"></i> Products</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Reports</a></li>
+                </ul>
+            </nav>
+            <h2 class="shop-title">Shawarma Spot!</h2>
+            <div class="user-menu">
+                <button class="user-menu-button">
+                    <i class="fas fa-user-circle"></i>
+                </button>
             </div>
         </div>
+    </header>
 
-        <!-- Customer Details -->
-        <div class="customer-details">
-            <h2>Customer Details</h2>
-            <input type="text" id="customer-name" placeholder="Customer Name">
-            <input type="text" id="customer-phone" placeholder="Customer Phone Number (WhatsApp)">
-        </div>
-
-        <!-- UPI Payment Details -->
-        <div class="upi-details">
-            <h2>Payment Information</h2>
-            <input type="text" id="upi-id" placeholder="UPI ID (e.g., yourname@upi)" value="">
-            <input type="text" id="payment-phone" placeholder="Payment Phone Number" value="">
-        </div>
-
-        <!-- Item Selection -->
-        <div class="item-selection">
-            <h2>Items</h2>
-            <div class="item-list">
-                <div class="item-header">
-                    <div>Item</div>
-                    <div>Price (₹)</div>
-                    <div>Quantity</div>
-                    <div>Total</div>
-                    <div></div>
-                </div>
-                <div id="items-container">
-                    <!-- Items will be added here -->
-                </div>
-                <div class="item-total">
-                    <div>Grand Total:</div>
-                    <div id="grand-total">₹0.00</div>
+    <div class="page-container">
+        <div class="container">
+            <div class="invoice-header">
+                <h1>Invoice Generator</h1>
+                <div class="quick-actions">
+                    <button class="btn-icon" title="New Invoice"><i class="fas fa-plus"></i></button>
+                    <button class="btn-icon" title="Settings"><i class="fas fa-cog"></i></button>
                 </div>
             </div>
-            <button class="add-item" id="add-item">+ Add Item</button>
 
-            <div class="product-list">
-                <h3>Available Products</h3>
-                <p>Select from the dropdown or add custom items with prices.</p>
+            <!-- Shop Details -->
+            <div class="shop-details panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-store"></i> Shop Details</h2>
+                    <button class="panel-toggle" title="Toggle panel"><i class="fas fa-chevron-up"></i></button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="shop-name">Shop Name</label>
+                        <input type="text" id="shop-name" placeholder="Shop Name" value="Shawarma Spot">
+                    </div>
+                    <div class="form-group">
+                        <label for="shop-address">Address</label>
+                        <input type="text" id="shop-address" placeholder="Shop Address" value="Krishnagiri, Tamil Nadu">
+                    </div>
+                    <div class="form-group">
+                        <label for="shop-contact">Contact</label>
+                        <input type="text" id="shop-contact" placeholder="Contact Information"
+                            value="Phone: +91 98765 43210, Email: contact@mystore.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="shop-gstin">GSTIN</label>
+                        <input type="text" id="shop-gstin" placeholder="GSTIN" value="">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Actions -->
-        <div class="actions">
-            <button class="btn btn-preview" id="preview-btn">Preview</button>
-            <button class="btn btn-save" id="save-btn">Save</button>
-            <button class="btn btn-whatsapp" id="whatsapp-btn">Send</button>
+            <!-- Invoice Details -->
+            <div class="invoice-details panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-file-invoice"></i> Invoice Details</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="two-column">
+                        <div class="invoice-date">
+                            <label>Date & Time:</label>
+                            <span id="current-datetime"></span>
+                        </div>
+                        <div class="invoice-number">
+                            <label>Invoice #:</label>
+                            <span id="invoice-number"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="customer-details panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-user"></i> Customer Details</h2>
+                    <button class="panel-toggle" title="Toggle panel"><i class="fas fa-chevron-up"></i></button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="customer-name">Name</label>
+                        <input type="text" id="customer-name" placeholder="Customer Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone (WhatsApp)</label>
+                        <input type="text" id="customer-phone" placeholder="Customer Phone Number">
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPI Payment Details -->
+            <div class="upi-details panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-wallet"></i> Payment Information</h2>
+                    <button class="panel-toggle" title="Toggle panel"><i class="fas fa-chevron-up"></i></button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="upi-id">UPI ID</label>
+                        <input type="text" id="upi-id" placeholder="UPI ID (e.g., yourname@upi)" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-phone">Payment Phone</label>
+                        <input type="text" id="payment-phone" placeholder="Payment Phone Number" value="">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item Selection -->
+            <div class="item-selection panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-shopping-cart"></i> Items</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="item-list">
+                        <div class="item-header">
+                            <div class="item-name">Item</div>
+                            <div class="item-price">Price (₹)</div>
+                            <div class="item-quantity">Quantity</div>
+                            <div class="item-total">Total</div>
+                            <div class="item-action"></div>
+                        </div>
+                        <div id="items-container">
+                            <!-- Items will be added here -->
+                        </div>
+                        <div class="item-total-row">
+                            <div>Grand Total:</div>
+                            <div id="grand-total">₹0.00</div>
+                        </div>
+                    </div>
+                    <button class="add-item" id="add-item"><i class="fas fa-plus"></i> Add Item</button>
+
+                    <div class="product-list">
+                        <h3>Available Products</h3>
+                        <p>Select from the dropdown or add custom items with prices.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button class="btn btn-preview" id="preview-btn"><i class="fas fa-eye"></i> Preview</button>
+                <button class="btn btn-save" id="save-btn"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-whatsapp" id="whatsapp-btn"><i class="fab fa-whatsapp"></i> Send</button>
+            </div>
         </div>
     </div>
 
     <!-- Preview Modal -->
-    <nav class="rotate">
-        <div id="preview-modal" class="modal">
-            <div class="modal-content">
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Invoice Preview</h2>
                 <span class="close">&times;</span>
-                <!--<h2>Invoice Preview</h2>-->
-                <div class="modal-body" id="preview-content">
-                    <!-- Preview content will be generated here -->
-                </div>
-                <div class="preview-actions no-print">
-                    <button class="btn btn-preview" id="print-btn">Print</button>
-                    <button class="btn btn-whatsapp" id="modal-whatsapp-btn">Send to WhatsApp</button>
-                </div>
+            </div>
+            <div class="modal-body" id="preview-content">
+                <!-- Preview content will be generated here -->
+            </div>
+            <div class="preview-actions no-print">
+                <button class="btn btn-preview" id="print-btn"><i class="fas fa-print"></i> Print</button>
+                <button class="btn btn-whatsapp" id="modal-whatsapp-btn"><i class="fab fa-whatsapp"></i> Send to WhatsApp</button>
             </div>
         </div>
-    </nav>
-    <script src="main.js"></script>
-</body>
+    </div>
 
+    <style>
+        /* This can be moved to your main CSS file */
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .panel {
+            margin-bottom: var(--spacing-lg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            background-color: var(--card-bg);
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-md);
+            background-color: rgba(67, 97, 238, 0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .panel-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .panel-header h2 i {
+            color: var(--primary-color);
+        }
+        
+        .panel-body {
+            padding: var(--spacing-md);
+        }
+        
+        .panel-toggle {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .panel-toggle:hover {
+            color: var(--primary-color);
+        }
+        
+        .two-column {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+        
+        .two-column > div {
+            flex: 1;
+        }
+        
+        /* Mobile adjustments will be handled in your responsive CSS */
+    </style>
+
+    <script src="main.js"></script>
+    <script src="remove-btn.js"></script>
+    <script src="menu-toggle.js"></script>
+</body>
 </html>
