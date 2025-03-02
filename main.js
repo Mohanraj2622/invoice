@@ -168,7 +168,6 @@
             removeBtn.addEventListener('click', function () {
                 row.remove();
                 updateGrandTotal();
-                
             });
 
             // Add elements to the row
