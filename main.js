@@ -164,10 +164,11 @@
             // Create remove button
             const removeBtn = document.createElement('button');
             removeBtn.className = 'btn-remove';
-            removeBtn.textContent = 'X';
+            removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
             removeBtn.addEventListener('click', function () {
                 row.remove();
                 updateGrandTotal();
+                
             });
 
             // Add elements to the row
