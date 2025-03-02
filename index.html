@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Invoice Generator</h1>
+
+
+        <!-- Shop Details -->
+        <div class="shop-details">
+            <h2>Shop Details</h2>
+            <input type="text" id="shop-name" placeholder="Shop Name" value="Shawarma Spot">
+            <input type="text" id="shop-address" placeholder="Shop Address" value="Krishnagiri, Tamil Nadu">
+            <input type="text" id="shop-contact" placeholder="Contact Information"
+                value="Phone: +91 98765 43210, Email: contact@mystore.com">
+            <input type="text" id="shop-gstin" placeholder="GSTIN" value="">
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <div class="invoice-date">
+                <p>Date & Time:</p>
+                <span id="current-datetime"></span>
+            </div>
+            <div class="invoice-number">
+                <p>Invoice #:</p>
+                <span id="invoice-number"></span>
+            </div>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="customer-details">
+            <h2>Customer Details</h2>
+            <input type="text" id="customer-name" placeholder="Customer Name">
+            <input type="text" id="customer-phone" placeholder="Customer Phone Number (WhatsApp)">
+        </div>
+
+        <!-- UPI Payment Details -->
+        <div class="upi-details">
+            <h2>Payment Information</h2>
+            <input type="text" id="upi-id" placeholder="UPI ID (e.g., yourname@upi)" value="">
+            <input type="text" id="payment-phone" placeholder="Payment Phone Number" value="">
+        </div>
+
+        <!-- Item Selection -->
+        <div class="item-selection">
+            <h2>Items</h2>
+            <div class="item-list">
+                <div class="item-header">
+                    <div>Item</div>
+                    <div>Price (₹)</div>
+                    <div>Quantity</div>
+                    <div>Total</div>
+                    <div></div>
+                </div>
+                <div id="items-container">
+                    <!-- Items will be added here -->
+                </div>
+                <div class="item-total">
+                    <div>Grand Total:</div>
+                    <div id="grand-total">₹0.00</div>
+                </div>
+            </div>
+            <button class="add-item" id="add-item">+ Add Item</button>
+
+            <div class="product-list">
+                <h3>Available Products</h3>
+                <p>Select from the dropdown or add custom items with prices.</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-preview" id="preview-btn">Preview</button>
+            <button class="btn btn-save" id="save-btn">Save</button>
+            <button class="btn btn-whatsapp" id="whatsapp-btn">Send</button>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <nav class="rotate">
+        <div id="preview-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!--<h2>Invoice Preview</h2>-->
+                <div class="modal-body" id="preview-content">
+                    <!-- Preview content will be generated here -->
+                </div>
+                <div class="preview-actions no-print">
+                    <button class="btn btn-preview" id="print-btn">Print</button>
+                    <button class="btn btn-whatsapp" id="modal-whatsapp-btn">Send to WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script src="main.js"></script>
+</body>
+
+</html>
