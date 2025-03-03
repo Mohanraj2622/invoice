@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Invoice Generator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
@@ -16,14 +17,15 @@
         <div class="header-container">
             <div class="logo-container">
                 <img src="shawarma-logo.png" alt="Generator Logo" class="logo">
-                
+
             </div>
             <nav class="main-nav">
                 <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-file-invoice"></i> Invoices</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-file-invoice"></i>
+                            Invoices</a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-box"></i> Products</a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Reports</a></li>
@@ -112,10 +114,43 @@
                 </div>
             </div>
 
-            <!-- UPI Payment Details -->
-            <div class="upi-details panel">
+            <!-- Payment Method Section -->
+            <div class="payment-method panel">
                 <div class="panel-header">
-                    <h2><i class="fas fa-wallet"></i> Payment Information</h2>
+                    <h2><i class="fas fa-money-bill-wave"></i> Payment Method</h2>
+                    <button class="panel-toggle" title="Toggle panel"><i class="fas fa-chevron-up"></i></button>
+                </div>
+                <div class="panel-body">
+                    <div class="payment-method-options">
+                        <div class="form-group">
+                            <label>Select Payment Method</label>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment-method" value="cash" checked>
+                                    <span class="payment-icon"><i class="fas fa-money-bill-wave"></i></span>
+                                    <span class="payment-label">Cash</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment-method" value="upi">
+                                    <span class="payment-icon"><i class="fas fa-mobile-alt"></i></span>
+                                    <span class="payment-label">UPI</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Custom Alert Modal -->
+            <div id="custom-alert" class="custom-alert">
+                <div class="custom-alert-content">
+                    <span id="custom-alert-message"></span>
+                    <button id="custom-alert-close">OK</button>
+                </div>
+            </div>
+            <!-- UPI Payment Details -->
+            <div class="upi-details panel" id="upi-details-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-wallet"></i> UPI Payment Information</h2>
                     <button class="panel-toggle" title="Toggle panel"><i class="fas fa-chevron-up"></i></button>
                 </div>
                 <div class="panel-body">
@@ -126,6 +161,11 @@
                     <div class="form-group">
                         <label for="payment-phone">Payment Phone</label>
                         <input type="text" id="payment-phone" placeholder="Payment Phone Number" value="">
+                    </div>
+                    <div class="form-group">
+                        <div id="qrcode-container">
+                            <!-- QR Code will be generated here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -182,85 +222,22 @@
             </div>
             <div class="preview-actions no-print">
                 <button class="btn btn-preview" id="print-btn"><i class="fas fa-print"></i> Print</button>
-                <button class="btn btn-whatsapp" id="modal-whatsapp-btn"><i class="fab fa-whatsapp"></i> Send to WhatsApp</button>
+                <!-- Print-Friendly Modal 
+                <div id="print-modal" class="print-modal">
+                    <div class="print-modal-content">
+                        <div id="print-content"></div>
+                        <button id="print-close-btn" class="btn-close">Close</button>
+                        <button id="print-now-btn" class="btn-print">Print Now</button>
+                    </div>
+                </div>-->
+                <!--<button class="btn btn-whatsapp" id="modal-whatsapp-btn"><i class="fab fa-whatsapp"></i> Send to WhatsApp</button>-->
             </div>
         </div>
     </div>
-
-    <style>
-        /* This can be moved to your main CSS file */
-        .form-group {
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: var(--spacing-xs);
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        
-        .panel {
-            margin-bottom: var(--spacing-lg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            background-color: var(--card-bg);
-            overflow: hidden;
-        }
-        
-        .panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: var(--spacing-md);
-            background-color: rgba(67, 97, 238, 0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .panel-header h2 {
-            margin: 0;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-        }
-        
-        .panel-header h2 i {
-            color: var(--primary-color);
-        }
-        
-        .panel-body {
-            padding: var(--spacing-md);
-        }
-        
-        .panel-toggle {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-        
-        .panel-toggle:hover {
-            color: var(--primary-color);
-        }
-        
-        .two-column {
-            display: flex;
-            gap: var(--spacing-lg);
-        }
-        
-        .two-column > div {
-            flex: 1;
-        }
-        
-        /* Mobile adjustments will be handled in your responsive CSS */
-    </style>
-
     <script src="main.js"></script>
-    <script src="main-2.js"></script>
-    <script src="data.js"></script>
+    <script src="product-data.js"></script>
     <script src="remove-btn.js"></script>
     <script src="menu-toggle.js"></script>
 </body>
+
 </html>
