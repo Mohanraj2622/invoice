@@ -34,13 +34,53 @@ document.addEventListener("wheel", function (event) {
 
 // Product Catalog with built-in prices
 const products = [
-    { id: 'prod1', name: "Nesamani Shawarma-Rgl", price: 50 },
-    { id: 'prod2', name: "Nesamani Shawarma-Spl", price: 80 },
-    { id: 'prod3', name: "Pushpa Shawarma", price: 90 },
-    { id: 'prod4', name: "Pubg Shawarma", price: 100 },
-    { id: 'prod5', name: "Ghost Rider Shawarma", price: 110 },
-    { id: 'prod6', name: "Cheese Shawarma", price: 120 },
-    { id: 'prod7', name: "Custom Item", price: 0 }
+    // shawarma
+    { id: 'prod1', name: "Nesamani Shawarma-Reg", price: 60 },
+    { id: 'prod2', name: "Nesamani Shawarma-Spe", price: 80 },
+    { id: 'prod3', name: "Pushpa Shawarma-Spe", price: 90 },
+    { id: 'prod4', name: "Pushpa Shawarma-Rge", price: 70 },
+    { id: 'prod5', name: "Ghost Rider Shawarma-Spe", price: 110 },
+    { id: 'prod6', name: "Cheese Shawarma-Spe", price: 130 },
+    { id: 'prod7', name: "Cheese Shawarma-Rge", price: 100 },
+    { id: 'prod8', name: "Ghost Rider Shawarma-Rge", price: 90 },
+    { id: 'prod9', name: "Plate Shawarma-Rge", price: 130 },
+    { id: 'prod10', name: "Plate Shawarma-Spe", price: 160 },
+    { id: 'prod11', name: "Bun Shawarma-Rge", price: 40 },
+    { id: 'prod12', name: "Bun Shawarma-Spe", price: 60 },
+    { id: 'prod13', name: "Hariyali Shawarma-Rge", price: 70 },
+    { id: 'prod14', name: "Hariyali Shawarma-Spe", price: 90 },
+    { id: 'prod15', name: "Maxican Shawarma-Rge", price: 80 },
+    { id: 'prod16', name: "Maxican Shawarma-Spe", price: 100 },
+    { id: 'prod17', name: "Jumbo Shawarma-Rge", price: 110 },
+    { id: 'prod18', name: "Jumbo Shawarma-Spe", price: 140 },
+    //fried chiken
+    { id: 'prod19', name: "Wings(5p)", price: 120 },
+    { id: 'prod20', name: "Lolipop(5p)", price: 120 },
+    { id: 'prod21', name: "Hot Wings(5p)", price: 130 },
+    { id: 'prod22', name: "Chicken Leg(2p)", price: 120 },
+    { id: 'prod23', name: "Hot Lolipop(5p)", price: 130 },
+    { id: 'prod24', name: "Chicken Popcorn", price: 100 },
+    // BBQ
+    { id: 'prod25', name: "BBQ Wings(5p)", price: 120 },
+    { id: 'prod26', name: "BBQ Lolipop(5p)", price: 120 },
+    { id: 'prod27', name: "BBQ Chicken Leg(5p)", price: 120 },
+    //chaats
+    { id: 'prod28', name: "French Fries", price: 50 },
+    { id: 'prod29', name: "Hot Fries", price: 60 },
+    { id: 'prod30', name: "Cheesy Fries", price: 70 },
+    { id: 'prod31', name: "Cheesy Fries with Popcorn", price: 160 },
+    // momos
+    { id: 'prod32', name: "Veg Momos", price: 70 },
+    { id: 'prod33', name: "Chicken Momos", price: 80 },
+    // mayonnaise
+    { id: 'prod34', name: "Extra Mayonnaise", price: 10 },
+    { id: 'prod35', name: "Extra Kuboos", price: 15 },
+    // today special's
+    { id: 'prod36', name: "Kothu Shawarma", price: 130 },
+    { id: 'prod37', name: "Fried Chicken pop corn Shawarma", price: 100 },
+
+    // custom item
+    { id: 'prod38', name: "Custom Item", price: 0 }
 ];
 
 // DOM Elements
@@ -557,9 +597,9 @@ if (printBtn) {
                     margin: [10, 10, 10, 10],
                     filename: filename,
                     image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { 
-                        scale: 2, 
-                        useCORS: true, 
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
                         logging: true,
                         onclone: (doc) => {
                             // Ensure styles are applied before capturing the image
@@ -571,10 +611,10 @@ if (printBtn) {
                             }
                         }
                     },
-                    jsPDF: { 
-                        unit: 'mm', 
-                        format: 'a4', 
-                        orientation: 'portrait' 
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
                     }
                 };
 
