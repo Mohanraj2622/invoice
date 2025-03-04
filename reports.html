@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Invoice Management Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="report.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo">
+                    <i class="fas fa-file-invoice"></i>
+                    <h2>Invoice Manager</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-file-invoice"></i>
+                            Invoices
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customers.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Customers
+                        </a>
+                    </li>
+
+                    <!--<li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-store"></i>
+                            Shops
+                        </a>
+                    </li>-->
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link active">
+                            <i class="fas fa-chart-bar"></i>
+                            Reports
+                        </a>
+                    </li>
+
+                    <!--<li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>-->
+                </ul>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name">Admin User</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Header -->
+                <div class="header">
+                    <h1 class="page-title">Invoice Dashboard</h1>
+                    <div class="actions">
+                        <button class="btn btn-outline" id="filterButton">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <button class="btn btn-primary" id="newInvoiceBtn">
+                            <i class="fas fa-plus"></i> New Invoice
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-title">Total Invoices</div>
+                                <div class="stat-card-value" id="totalInvoices">0</div>
+                            </div>
+                            <div class="stat-card-icon" style="background-color: #4361ee;">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-footer">
+                            <span class="stat-trend-up"><i class="fas fa-arrow-up"></i></span>
+                            <span>from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-title">Revenue</div>
+                                <div class="stat-card-value" id="totalRevenue">₹0</div>
+                            </div>
+                            <div class="stat-card-icon" style="background-color: #4CAF50;">
+                                <i class="fas fa-rupee-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-footer">
+                            <span class="stat-trend-up"><i class="fas fa-arrow-up"></i></span>
+                            <span>from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-title">Customers</div>
+                                <div class="stat-card-value" id="totalCustomers">0</div>
+                            </div>
+                            <div class="stat-card-icon" style="background-color: #ff9e00;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-footer">
+                            <span class="stat-trend-up"><i class="fas fa-arrow-up"></i></span>
+                            <span>from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-title">Shops</div>
+                                <div class="stat-card-value" id="totalShops">0</div>
+                            </div>
+                            <div class="stat-card-icon" style="background-color: #3f37c9;">
+                                <i class="fas fa-store"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-footer">
+                            <span class="stat-trend-up"><i class="fas fa-arrow-up"></i></span>
+                            <span>from last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Section -->
+                <div class="analytics-section">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2 class="chart-title">Revenue Overview</h2>
+                            <div class="chart-filters">
+                                <div class="chart-filter" data-period="day">Day</div>
+                                <div class="chart-filter" data-period="weekly">Weekly</div>
+                                <div class="chart-filter active" data-period="monthly">Monthly</div>
+                                <div class="chart-filter" data-period="yearly">Yearly</div>
+                            </div>
+                        </div>
+                        <canvas id="revenueChart" class="chart-canvas"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2 class="chart-title">Payment Methods</h2>
+                        </div>
+                        <canvas id="paymentMethodChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                <!-- Custom Alert Modal -->
+                <div id="custom-alert" class="custom-alert">
+                    <div class="custom-alert-content">
+                        <span id="custom-alert-message"></span>
+                        <button id="custom-alert-close">OK</button>
+                    </div>
+                </div>
+                <!-- Table Section -->
+                <div class="table-section">
+                    <div class="table-header">
+                        <h2 class="chart-title">Recent Invoices</h2>
+                        <div class="table-actions">
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput" class="search-input"
+                                    placeholder="Search invoices...">
+                            </div>
+                            <div class="filter-dropdown">
+                                <button class="filter-btn" id="columnFilterBtn">
+                                    <i class="fas fa-filter"></i>
+                                    <span>Filter Column</span>
+                                </button>
+                                <div class="filter-options" id="columnFilterOptions">
+                                    <div class="filter-option selected" data-column="0">Invoice Number</div>
+                                    <div class="filter-option" data-column="1">Date</div>
+                                    <div class="filter-option" data-column="2">Shop Name</div>
+                                    <div class="filter-option" data-column="3">Customer Name</div>
+                                    <div class="filter-option" data-column="4">Customer Phone</div>
+                                    <div class="filter-option" data-column="5">Payment Method</div>
+                                    <div class="filter-option" data-column="6">UPI ID</div>
+                                    <div class="filter-option" data-column="7">Payment Phone</div>
+                                    <div class="filter-option" data-column="8">Total Items</div>
+                                    <div class="filter-option" data-column="9">Grand Total</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="invoiceTable">
+                            <thead>
+                                <tr>
+                                    <th data-sort="string">Invoice #</th>
+                                    <th data-sort="date">Date</th>
+                                    <th data-sort="string">Shop Name</th>
+                                    <th data-sort="string">Customer</th>
+                                    <th data-sort="string">Payment Method</th>
+                                    <th data-sort="number">Items</th>
+                                    <th data-sort="number">Amount</th>
+                                    <th data-sort="string">Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceTableBody">
+                                <!-- Table data will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-pagination">
+                        <div class="page-info">Showing <span id="currentResults">0</span> of <span
+                                id="totalResults">0</span> results</div>
+                        <div class="pagination-controls" id="pagination">
+                            <button class="page-btn disabled" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">...</button>
+                            <button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Details Modal -->
+    <div class="modal-overlay" id="invoiceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Invoice Details</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="invoiceDetails">
+                <!-- Invoice details will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="printInvoice">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn btn-primary" id="downloadInvoice">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="report.js"></script>
+</body>
+</html>
