@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="style-main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
     <!-- Header and Navigation -->
     <header class="main-header">
@@ -27,8 +27,8 @@
                     <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-file-invoice"></i>
                             Invoices</a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-box"></i> Products</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Reports</a></li>
+                    <li class="nav-item"><a href="customers.html" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
+                    <li class="nav-item"><a href="reports.html" class="nav-link"><i class="fas fa-chart-line"></i> Reports</a></li>
                 </ul>
             </nav>
             <h2 class="shop-title">Shawarma Spot!</h2>
@@ -44,10 +44,10 @@
         <div class="container">
             <div class="invoice-header">
                 <h1>Invoice Generator</h1>
-                <div class="quick-actions">
+              <!--  <div class="quick-actions">
                     <button class="btn-icon" title="New Invoice"><i class="fas fa-plus"></i></button>
                     <button class="btn-icon" title="Settings"><i class="fas fa-cog"></i></button>
-                </div>
+                </div>-->
             </div>
 
             <!-- Shop Details -->
@@ -156,7 +156,7 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="upi-id">UPI ID</label>
-                        <input type="text" id="upi-id" placeholder="UPI ID (e.g., yourname@upi)" value="">
+                        <input type="text" id="upi-id" placeholder="UPI ID (e.g., yourname@upi)" value="paytm.s138go5@pty">
                     </div>
                     <div class="form-group">
                         <label for="payment-phone">Payment Phone</label>
@@ -221,7 +221,7 @@
                 <!-- Preview content will be generated here -->
             </div>
             <div class="preview-actions no-print">
-                <button class="btn btn-preview" id="print-btn"><i class="fas fa-print"></i> Print</button>
+                <button class="btn btn-preview" id="print-btn"><i class="fas fa-print"></i> Pdf</button>
                 <!-- Print-Friendly Modal 
                 <div id="print-modal" class="print-modal">
                     <div class="print-modal-content">
@@ -235,7 +235,6 @@
         </div>
     </div>
     <script src="main.js"></script>
-    <script src="product-data.js"></script>
     <script src="remove-btn.js"></script>
     <script src="menu-toggle.js"></script>
 </body>
